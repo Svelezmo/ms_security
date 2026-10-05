@@ -1,6 +1,7 @@
 package com.uc.ms_security.dto.user;
 
 import com.uc.ms_security.dto.profile.ProfileResponseDTO;
+
 import lombok.Value;
 
 
@@ -13,5 +14,5 @@ public class UserDetailResponseDTO {
 
     String email;
 
-    ProfileResponseDTO profile;
+    ProfileResponseDTO profile;//hace el join con el profile y devuelve el profile en el response
 }

@@ -1051,21 +1051,21 @@ Nuestro endpoint:
 @GetMapping("/{id}")
 ```
 
-ahora agregaremos :
+ahora devuelve el detalle del usuario junto con su perfil:
 
 ```java
-@GetMapping("/{id}/profile")
-    public UserDetailResponseDTO findByIdAndProfile(
-            @PathVariable Long id) {
+@GetMapping("/{id}")
+public UserDetailResponseDTO findByIdAndProfile(
+        @PathVariable Long id) {
 
-        return userService.findByIdAndProfile(id);
+    return userService.findByIdAndProfile(id);
 }
 ```
 
 Así:
 
 ```http
-GET /api/users/1/profile
+GET /api/users/1
 ```
 
 devuelve:
@@ -1082,6 +1082,14 @@ devuelve:
   }
 }
 ```
+
+Para consultar únicamente el perfil también está disponible el recurso anidado:
+
+```http
+GET /api/users/1/profile
+```
+
+que devuelve un `ProfileResponseDTO`.
 
 Mientras:
 
@@ -1232,7 +1240,7 @@ public class ProfileController {
             @Valid @RequestBody ProfileRequestDTO dto) {
         return profileService.create(userId, dto);
     }
-       
+
 
     @PutMapping
     public ProfileResponseDTO update(

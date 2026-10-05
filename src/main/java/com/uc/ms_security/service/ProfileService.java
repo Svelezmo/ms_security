@@ -1,8 +1,10 @@
 package com.uc.ms_security.service;
 
+import org.springframework.stereotype.Service;
+
 import com.uc.ms_security.dto.profile.CreateProfileDTO;
-import com.uc.ms_security.dto.profile.UpdateProfileDTO;
 import com.uc.ms_security.dto.profile.ProfileResponseDTO;
+import com.uc.ms_security.dto.profile.UpdateProfileDTO;
 import com.uc.ms_security.entity.Profile;
 import com.uc.ms_security.entity.User;
 import com.uc.ms_security.exception.ApplicationException;
@@ -10,8 +12,8 @@ import com.uc.ms_security.exception.ErrorCase;
 import com.uc.ms_security.mapper.ProfileMapper;
 import com.uc.ms_security.repository.ProfileRepository;
 import com.uc.ms_security.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +39,7 @@ public class ProfileService {
 
         Profile profile = profileMapper.toEntity(dto);
         profile.setUser(user);
+        user.setProfile(profile); // Establece la relación bidireccional
 
         Profile savedProfile = profileRepository.save(profile);
         return profileMapper.toResponseDTO(savedProfile);
@@ -67,8 +70,3 @@ public class ProfileService {
                 ));
     }
 }
-
-
-
-
-
